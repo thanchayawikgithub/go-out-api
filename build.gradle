@@ -17,13 +17,35 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    agent
+}
+
 dependencies {
+    implementation 'io.opentelemetry:opentelemetry-api'
+    agent 'io.opentelemetry.javaagent:opentelemetry-javaagent:2.5.0'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-//tasks.named('test') {
-//    useJUnitPlatform()
-//}
+tasks.named('test') {
+   useJUnitPlatform()
+}
+
+task copyAgent(type: Copy) {
+    from configurations.agent {
+        rename "opentelemetry-javaagent-.*\\.jar", "opentelemetry-javaagent.jar"
+    }
+    into layout.buildDirectory.dir("agent")
+}
+
+tasks.named('bootJar') {
+    dependsOn(copyAgent)
+    archiveFileName = "app.jar"
+}

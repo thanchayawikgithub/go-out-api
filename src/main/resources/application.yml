@@ -1,3 +1,12 @@
 spring:
   application:
     name: go-out-api
+  threads:
+    virtual:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,prometheus"
