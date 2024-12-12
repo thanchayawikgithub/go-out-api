@@ -1,6 +1,7 @@
 server:
   shutdown: graceful
-
+  servlet:
+    context-path: /api
 spring:
   application:
     name: go-out-api

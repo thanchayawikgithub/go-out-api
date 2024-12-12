@@ -1,4 +1,4 @@
-package com.than.go_out_api.tour;
+package com.than.go_out_api.tourcompany.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tour {
+public class TourCompanyDto {
   private Integer id;
-  private String title;
-  private Integer maxPeople;
+  private String name;
+  private String status;
 }

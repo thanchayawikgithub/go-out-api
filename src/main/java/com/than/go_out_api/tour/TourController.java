@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/tours")
+@RequestMapping("/v1/tour")
 @Slf4j
 public class TourController {
   private static final AtomicInteger ATOMIC_INTEGER = new AtomicInteger(1);
