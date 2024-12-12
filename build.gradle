@@ -19,16 +19,22 @@ repositories {
 
 configurations {
     agent
+    developmentOnly
 }
 
 dependencies {
-    implementation 'io.opentelemetry:opentelemetry-api'
-    agent 'io.opentelemetry.javaagent:opentelemetry-javaagent:2.5.0'
+    implementation("io.opentelemetry:opentelemetry-api")
+    agent("io.opentelemetry.javaagent:opentelemetry-javaagent:2.5.0")
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.flywaydb:flyway-core'
+    implementation 'org.flywaydb:flyway-database-postgresql'
     compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
+    runtimeOnly 'org.postgresql:postgresql'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -38,7 +44,7 @@ tasks.named('test') {
    useJUnitPlatform()
 }
 
-task copyAgent(type: Copy) {
+tasks.register('copyAgent', Copy) {
     from configurations.agent {
         rename "opentelemetry-javaagent-.*\\.jar", "opentelemetry-javaagent.jar"
     }
