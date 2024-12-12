@@ -1,4 +1,4 @@
-package com.than.go_out_api.tourcompany;
+package com.than.go_out_api.tourcompany.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
